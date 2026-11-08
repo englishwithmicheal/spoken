@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spoken English Paragon Recordings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+<style>
+/* Layout: one reading column; a navy title band like the book's chapter openers; tracks as rows grouped by chapter. */
+:root {
+  --paper: #f6f7fa;
+  --card: #ffffff;
+  --ink: #1b2233;
+  --muted: #5b6375;
+  --rule: #dde1ea;
+  --navy: #1f3864;
+  --navy-ink: #ffffff;
+  --plum: #7a3352;
+  --plum-soft: #f6ebf0;
+  --listen-soft: #e9eef7;
+  --hi: #fff6d6;
+  --serif: "Literata", "Palatino Linotype", Palatino, Georgia, serif;
+  --ui: "Atkinson Hyperlegible", "Segoe UI", Roboto, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #11151d; --card: #1a202b; --ink: #e8ebf2; --muted: #a3abbb; --rule: #2c3442;
+  --navy: #2b4a80; --navy-ink: #ffffff; --plum: #d98aa9; --plum-soft: #2d1f27; --listen-soft: #1d2840; --hi: #3a3417;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #11151d; --card: #1a202b; --ink: #e8ebf2; --muted: #a3abbb; --rule: #2c3442;
+  --navy: #2b4a80; --navy-ink: #ffffff; --plum: #d98aa9; --plum-soft: #2d1f27; --listen-soft: #1d2840; --hi: #3a3417;
+  color-scheme: dark }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.55; }
+.band { background: var(--navy); color: var(--navy-ink);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 30px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+.main { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 8px 48px; }
+.eyebrow { font-family: var(--ui); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; opacity: .85; margin: 0 0 6px; }
+h1 { font-weight: 600; font-size: clamp(28px, 6vw, 40px); line-height: 1.15; margin: 0 0 8px; text-wrap: balance; }
+.byline { font-family: var(--ui); font-size: 15px; opacity: .9; margin: 0; }
+.byline.copy { font-size: 13px; opacity: .85; margin-top: 6px; }
+.intro { margin: 22px 0 18px; max-width: 65ch; }
+.tools { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 18px; }
+.tools input, .tools select { font-family: var(--ui); font-size: 16px; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); color: var(--ink); min-width: 0; }
+.tools input { flex: 1 1 220px; }
+.tools select { flex: 0 1 260px; }
+.feature { display: none; background: var(--hi); border: 1px solid var(--rule); border-radius: 12px; padding: 16px; margin: 0 0 22px; }
+.feature.on { display: block; }
+.feature p { margin: 0 0 4px; }
+.feature .ft { font-weight: 600; font-size: 20px; line-height: 1.3; }
+.feature .fl { font-family: var(--ui); font-size: 14px; color: var(--muted); }
+.bigplay { margin-top: 12px; display: inline-flex; align-items: center; gap: 10px; font-family: var(--ui); font-weight: 700; font-size: 18px;
+  background: var(--navy); color: var(--navy-ink); border: 0; border-radius: 999px; padding: 12px 22px; cursor: pointer; }
+.bigplay:focus-visible, .row button:focus-visible { outline: 3px solid var(--plum); outline-offset: 2px; }
+.chapter { margin: 30px 0 8px; padding-top: 6px; border-top: 2px solid var(--navy); }
+.chapter h2 { font-size: 15px; font-family: var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--navy); margin: 6px 0 2px; }
+:root[data-theme="dark"] .chapter h2 { color: #9fb6e0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chapter h2 { color: #9fb6e0; } }
+.chapter .ct { font-size: 20px; font-weight: 600; margin: 0 0 6px; }
+.row { display: grid; grid-template-columns: 52px 1fr; gap: 4px 12px; align-items: start; padding: 12px 10px; border-radius: 10px; scroll-margin-top: 16px; }
+.row + .row { border-top: 1px solid var(--rule); }
+.row.say .num { background: var(--plum-soft); color: var(--plum); }
+.row.hit { background: var(--hi); }
+.num { grid-row: span 2; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-family: var(--ui); font-weight: 700; font-size: 17px;
+  background: var(--listen-soft); color: var(--navy); font-variant-numeric: tabular-nums; }
+:root[data-theme="dark"] .num { color: #cfe0ff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .num { color: #cfe0ff; } }
+.meta { min-width: 0; }
+.kind { font-family: var(--ui); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.say .kind { color: var(--plum); }
+.title { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.dur { font-family: var(--ui); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+audio { grid-column: 2; width: 100%; max-width: 100%; height: 40px; margin-top: 6px; }
+.soon { grid-column: 2; font-family: var(--ui); font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+.note { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--muted); }
+.note p { margin: 0 0 10px; max-width: 65ch; }
+.empty { font-family: var(--ui); color: var(--muted); padding: 20px 0; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <p class="eyebrow">The Spoken English Paragon · Senior One to Senior Four</p>
+    <h1>Recordings</h1>
+    <p class="byline">Muwereza Micheal · English with Micheal, Ndejje, Uganda</p>
+    <p class="byline copy">© 2026 Muwereza Micheal. All rights reserved.</p>
+  </div>
+</header>
+
+<main class="main">
+  <div class="wrap">
+    <p class="intro">Every listening task and every <em>Say It Aloud</em> box in the book has a recording. Scan the code printed beside the task to open it here, or find the track number below. Play each recording as often as you need, and pause it to repeat or to write.</p>
+
+
+    <div class="tools">
+      <input id="q" type="search" placeholder="Find a track: number or words, e.g. 23 or market" aria-label="Find a track">
+      <select id="jump" aria-label="Go to a chapter"><option value="">Go to a chapter…</option></select>
+    </div>
+
+    <div id="list"></div>
+
+    <div class="note">
+      <p><strong>About these recordings.</strong> The voices are computer-generated British English voices, made for this book. The tunes of the voice in the intonation tasks (falls and rises) were set by hand to match what the book teaches, and every recording was checked word by word with speech-recognition software. A teacher's own voice is still the best model in class: use the recordings for practice, for revision and for listening at home.</p>
+      <p><strong>Copyright.</strong> These recordings and this page are © 2026 Muwereza Micheal. All rights reserved. They belong with the book <em>The Spoken English Paragon</em>: learners and teachers who use the book may play them in class and at home. They may not be copied, sold, broadcast, uploaded to other websites or shared on social media without the written permission of the author.</p>
+      <p>The Spoken English Paragon · English with Micheal, Ndejje, Uganda. Tel. +256 768 462708 / +256 748 216316.</p>
+    </div>
+  </div>
+</main>
+
+<script>
+const TRACKS = [{"id": "S01-1", "n": 1, "kind": "say", "label": "Say It Aloud", "title": "Feeling the organs at work", "ch": 1, "cht": "Speaking to Be Understood", "sec": 68.4, "file": "S01-1.mp3"}, {"id": "L01-1", "n": 2, "kind": "listen", "label": "Listening Task 1.1", "title": "Two ways to make an announcement", "ch": 1, "cht": "Speaking to Be Understood", "sec": 129.2, "file": "L01-1.mp3"}, {"id": "S02-1", "n": 3, "kind": "say", "label": "Say It Aloud", "title": "Minimal pairs", "ch": 2, "cht": "The Sounds and Symbols of English", "sec": 80.6, "file": "S02-1.mp3"}, {"id": "L02-1", "n": 4, "kind": "listen", "label": "Listening Task 2.1", "title": "Which word did I say?", "ch": 2, "cht": "The Sounds and Symbols of English", "sec": 139.9, "file": "L02-1.mp3"}, {"id": "S03-1", "n": 5, "kind": "say", "label": "Say It Aloud", "title": "/iː/ and /ɪ/", "ch": 3, "cht": "Short and Long Vowels", "sec": 110.4, "file": "S03-1.mp3"}, {"id": "S03-2", "n": 6, "kind": "say", "label": "Say It Aloud", "title": "/uː/ and /ʊ/", "ch": 3, "cht": "Short and Long Vowels", "sec": 81.6, "file": "S03-2.mp3"}, {"id": "S03-3", "n": 7, "kind": "say", "label": "Say It Aloud", "title": "/ɔː/ and /ɒ/", "ch": 3, "cht": "Short and Long Vowels", "sec": 85.0, "file": "S03-3.mp3"}, {"id": "L03-1", "n": 8, "kind": "listen", "label": "Listening Task 3.1", "title": "Long or short?", "ch": 3, "cht": "Short and Long Vowels", "sec": 173.9, "file": "L03-1.mp3"}, {"id": "L03-2", "n": 9, "kind": "listen", "label": "Listening Task 3.2", "title": "Who wants what?", "ch": 3, "cht": "Short and Long Vowels", "sec": 52.5, "file": "L03-2.mp3"}, {"id": "S04-1", "n": 10, "kind": "say", "label": "Say It Aloud", "title": "/æ/, /ʌ/ and /ɑː/", "ch": 4, "cht": "The Middle Vowels", "sec": 109.8, "file": "S04-1.mp3"}, {"id": "S04-2", "n": 11, "kind": "say", "label": "Say It Aloud", "title": "/ɜː/ against other vowels", "ch": 4, "cht": "The Middle Vowels", "sec": 98.8, "file": "S04-2.mp3"}, {"id": "S04-3", "n": 12, "kind": "say", "label": "Say It Aloud", "title": "The schwa", "ch": 4, "cht": "The Middle Vowels", "sec": 45.4, "file": "S04-3.mp3"}, {"id": "L04-1", "n": 13, "kind": "listen", "label": "Listening Task 4.1", "title": "One, two or three?", "ch": 4, "cht": "The Middle Vowels", "sec": 116.1, "file": "L04-1.mp3"}, {"id": "L04-2", "n": 14, "kind": "listen", "label": "Listening Task 4.2", "title": "At Mama Brenda’s stall", "ch": 4, "cht": "The Middle Vowels", "sec": 53.5, "file": "L04-2.mp3"}, {"id": "S05-1", "n": 15, "kind": "say", "label": "Say It Aloud", "title": "/eɪ/ against /e/, and /aɪ/ against /ɔɪ/", "ch": 5, "cht": "Combined Vowels: Diphthongs", "sec": 106.7, "file": "S05-1.mp3"}, {"id": "S05-2", "n": 16, "kind": "say", "label": "Say It Aloud", "title": "/əʊ/ against /ɔː/ and /ɒ/, and /aʊ/ against /əʊ/", "ch": 5, "cht": "Combined Vowels: Diphthongs", "sec": 107.9, "file": "S05-2.mp3"}, {"id": "S05-3", "n": 17, "kind": "say", "label": "Say It Aloud", "title": "/ɪə/ against /eə/", "ch": 5, "cht": "Combined Vowels: Diphthongs", "sec": 77.4, "file": "S05-3.mp3"}, {"id": "L05-1", "n": 18, "kind": "listen", "label": "Listening Task 5.1", "title": "Pure or gliding?", "ch": 5, "cht": "Combined Vowels: Diphthongs", "sec": 120.4, "file": "L05-1.mp3"}, {"id": "L05-2", "n": 19, "kind": "listen", "label": "Listening Task 5.2", "title": "Survey results", "ch": 5, "cht": "Combined Vowels: Diphthongs", "sec": 44.2, "file": "L05-2.mp3"}, {"id": "S06-1", "n": 20, "kind": "say", "label": "Say It Aloud", "title": "Voiceless and voiced", "ch": 6, "cht": "Consonants: Voiced and Voiceless, Hard and Soft", "sec": 114.0, "file": "S06-1.mp3"}, {"id": "S06-2", "n": 21, "kind": "say", "label": "Say It Aloud", "title": "Soft against hard", "ch": 6, "cht": "Consonants: Voiced and Voiceless, Hard and Soft", "sec": 107.6, "file": "S06-2.mp3"}, {"id": "L06-1", "n": 22, "kind": "listen", "label": "Listening Task 6.1", "title": "Soft or hard?", "ch": 6, "cht": "Consonants: Voiced and Voiceless, Hard and Soft", "sec": 115.9, "file": "L06-1.mp3"}, {"id": "L06-2", "n": 23, "kind": "listen", "label": "Listening Task 6.2", "title": "Spell it out", "ch": 6, "cht": "Consonants: Voiced and Voiceless, Hard and Soft", "sec": 134.9, "file": "L06-2.mp3"}, {"id": "S07-1", "n": 24, "kind": "say", "label": "Say It Aloud", "title": "/l/ and /r/", "ch": 7, "cht": "Consonants Often Confused", "sec": 110.5, "file": "S07-1.mp3"}, {"id": "S07-2", "n": 25, "kind": "say", "label": "Say It Aloud", "title": "th against /t/, /d/ and /s/", "ch": 7, "cht": "Consonants Often Confused", "sec": 124.3, "file": "S07-2.mp3"}, {"id": "S07-3", "n": 26, "kind": "say", "label": "Say It Aloud", "title": "Voiceless and voiced pairs for the traveller", "ch": 7, "cht": "Consonants Often Confused", "sec": 120.2, "file": "S07-3.mp3"}, {"id": "S07-4", "n": 27, "kind": "say", "label": "Say It Aloud", "title": "/h/, and /n/ and /ŋ/", "ch": 7, "cht": "Consonants Often Confused", "sec": 77.2, "file": "S07-4.mp3"}, {"id": "L07-1", "n": 28, "kind": "listen", "label": "Listening Task 7.1", "title": "Moving to the city", "ch": 7, "cht": "Consonants Often Confused", "sec": 67.8, "file": "L07-1.mp3"}, {"id": "S08-1", "n": 29, "kind": "say", "label": "Say It Aloud", "title": "Clusters at the start and the end", "ch": 8, "cht": "Clusters and Endings", "sec": 95.6, "file": "S08-1.mp3"}, {"id": "L08-1", "n": 30, "kind": "listen", "label": "Listening Task 8.1", "title": "/t/, /d/ or /ɪd/?", "ch": 8, "cht": "Clusters and Endings", "sec": 125.2, "file": "L08-1.mp3"}, {"id": "S08-2", "n": 31, "kind": "say", "label": "Say It Aloud", "title": "/s/, /z/ and /ɪz/", "ch": 8, "cht": "Clusters and Endings", "sec": 89.4, "file": "S08-2.mp3"}, {"id": "L08-2", "n": 32, "kind": "listen", "label": "Listening Task 8.2", "title": "The booking form", "ch": 8, "cht": "Clusters and Endings", "sec": 53.4, "file": "L08-2.mp3"}, {"id": "S09-1", "n": 33, "kind": "say", "label": "Say It Aloud", "title": "Silent letters", "ch": 9, "cht": "Silent Letters and Spelling Pronunciation", "sec": 80.0, "file": "S09-1.mp3"}, {"id": "L09-1", "n": 34, "kind": "listen", "label": "Listening Task 9.1", "title": "Spelling from sound", "ch": 9, "cht": "Silent Letters and Spelling Pronunciation", "sec": 261.0, "file": "L09-1.mp3"}, {"id": "S10-1", "n": 35, "kind": "say", "label": "Say It Aloud", "title": "Nouns and verbs", "ch": 10, "cht": "Word Stress", "sec": 49.0, "file": "S10-1.mp3"}, {"id": "S10-2", "n": 36, "kind": "say", "label": "Say It Aloud", "title": "Compounds and numbers", "ch": 10, "cht": "Word Stress", "sec": 74.7, "file": "S10-2.mp3"}, {"id": "L10-1", "n": 37, "kind": "listen", "label": "Listening Task 10.1", "title": "Which pattern?", "ch": 10, "cht": "Word Stress", "sec": 146.9, "file": "L10-1.mp3"}, {"id": "S11-1", "n": 38, "kind": "say", "label": "Say It Aloud", "title": "Weak forms", "ch": 11, "cht": "Sentence Stress, Weak Forms and Rhythm", "sec": 58.5, "file": "S11-1.mp3"}, {"id": "S11-2", "n": 39, "kind": "say", "label": "Say It Aloud", "title": "Chants and proverbs on the beat", "ch": 11, "cht": "Sentence Stress, Weak Forms and Rhythm", "sec": 51.6, "file": "S11-2.mp3"}, {"id": "L11-1", "n": 40, "kind": "listen", "label": "Listening Task 11.1", "title": "Weak forms in fast speech", "ch": 11, "cht": "Sentence Stress, Weak Forms and Rhythm", "sec": 76.7, "file": "L11-1.mp3"}, {"id": "L11-2", "n": 41, "kind": "listen", "label": "Listening Task 11.2", "title": "What does the speaker mean?", "ch": 11, "cht": "Sentence Stress, Weak Forms and Rhythm", "sec": 40.8, "file": "L11-2.mp3"}, {"id": "S12-1", "n": 42, "kind": "say", "label": "Say It Aloud", "title": "Linking", "ch": 12, "cht": "Connected Speech", "sec": 75.1, "file": "S12-1.mp3"}, {"id": "L12-1", "n": 43, "kind": "listen", "label": "Listening Task 12.1", "title": "What did they say?", "ch": 12, "cht": "Connected Speech", "sec": 93.1, "file": "L12-1.mp3"}, {"id": "L12-2", "n": 44, "kind": "listen", "label": "Listening Task 12.2", "title": "On the radio", "ch": 12, "cht": "Connected Speech", "sec": 63.6, "file": "L12-2.mp3"}, {"id": "S13-1", "n": 45, "kind": "say", "label": "Say It Aloud", "title": "Falls and rises", "ch": 13, "cht": "Intonation", "sec": 46.4, "file": "S13-1.mp3"}, {"id": "S13-2", "n": 46, "kind": "say", "label": "Say It Aloud", "title": "Attitude in the voice", "ch": 13, "cht": "Intonation", "sec": 31.3, "file": "S13-2.mp3"}, {"id": "L13-1", "n": 47, "kind": "listen", "label": "Listening Task 13.1", "title": "Statement or question? Checking or asking?", "ch": 13, "cht": "Intonation", "sec": 76.2, "file": "L13-1.mp3"}, {"id": "L13-2", "n": 48, "kind": "listen", "label": "Listening Task 13.2", "title": "Speeches at celebrations", "ch": 13, "cht": "Intonation", "sec": 57.7, "file": "L13-2.mp3"}, {"id": "L14-1", "n": 49, "kind": "listen", "label": "Listening Task 14.1", "title": "The nurse’s talk", "ch": 14, "cht": "How We Listen", "sec": 74.7, "file": "L14-1.mp3"}, {"id": "L14-2", "n": 50, "kind": "listen", "label": "Listening Task 14.2", "title": "A radio announcement", "ch": 14, "cht": "How We Listen", "sec": 56.7, "file": "L14-2.mp3"}, {"id": "L15-1", "n": 51, "kind": "listen", "label": "Listening Task 15.1", "title": "Water for our village", "ch": 15, "cht": "Listening for Gist, Detail and Pleasure", "sec": 76.4, "file": "L15-1.mp3"}, {"id": "L15-2", "n": 52, "kind": "listen", "label": "Listening Task 15.2", "title": "At the bank", "ch": 15, "cht": "Listening for Gist, Detail and Pleasure", "sec": 60.6, "file": "L15-2.mp3"}, {"id": "L15-3", "n": 53, "kind": "listen", "label": "Listening Task 15.3", "title": "The hare and the drum", "ch": 15, "cht": "Listening for Gist, Detail and Pleasure", "sec": 66.7, "file": "L15-3.mp3"}, {"id": "L16-1", "n": 54, "kind": "listen", "label": "Listening Task 16.1", "title": "Human rights and responsibilities", "ch": 16, "cht": "Listening and Taking Notes", "sec": 148.0, "file": "L16-1.mp3"}, {"id": "L16-2", "n": 55, "kind": "listen", "label": "Listening Task 16.2", "title": "How we travel to school", "ch": 16, "cht": "Listening and Taking Notes", "sec": 71.0, "file": "L16-2.mp3"}, {"id": "L16-3", "n": 56, "kind": "listen", "label": "Listening Task 16.3", "title": "A message from the deputy head teacher", "ch": 16, "cht": "Listening and Taking Notes", "sec": 42.8, "file": "L16-3.mp3"}, {"id": "L17-1", "n": 57, "kind": "listen", "label": "Listening Task 17.1", "title": "The class meeting", "ch": 17, "cht": "Active and Empathetic Listening", "sec": 88.8, "file": "L17-1.mp3"}, {"id": "L17-2", "n": 58, "kind": "listen", "label": "Listening Task 17.2", "title": "I’m coming", "ch": 17, "cht": "Active and Empathetic Listening", "sec": 49.6, "file": "L17-2.mp3"}, {"id": "L17-3", "n": 59, "kind": "listen", "label": "Listening Task 17.3", "title": "Two ways to listen", "ch": 17, "cht": "Active and Empathetic Listening", "sec": 72.0, "file": "L17-3.mp3"}, {"id": "S18-1", "n": 60, "kind": "say", "label": "Say It Aloud", "title": "Querying politely", "ch": 18, "cht": "Critical Listening", "sec": 39.4, "file": "S18-1.mp3"}, {"id": "L18-1", "n": 61, "kind": "listen", "label": "Listening Task 18.1", "title": "A radio advertisement", "ch": 18, "cht": "Critical Listening", "sec": 62.4, "file": "L18-1.mp3"}, {"id": "L18-2", "n": 62, "kind": "listen", "label": "Listening Task 18.2", "title": "The one o’clock news", "ch": 18, "cht": "Critical Listening", "sec": 126.9, "file": "L18-2.mp3"}, {"id": "L18-3", "n": 63, "kind": "listen", "label": "Listening Task 18.3", "title": "The Big Question", "ch": 18, "cht": "Critical Listening", "sec": 76.2, "file": "L18-3.mp3"}, {"id": "L18-4", "n": 64, "kind": "listen", "label": "Listening Task 18.4", "title": "Should every learner serve the community?", "ch": 18, "cht": "Critical Listening", "sec": 106.2, "file": "L18-4.mp3"}, {"id": "L19-1", "n": 65, "kind": "listen", "label": "Listening Task 19.1", "title": "A second chance", "ch": 19, "cht": "Conversation and Turn-Taking", "sec": 64.0, "file": "L19-1.mp3"}, {"id": "L19-2", "n": 66, "kind": "listen", "label": "Listening Task 19.2", "title": "Meeting a visitor", "ch": 19, "cht": "Conversation and Turn-Taking", "sec": 93.8, "file": "L19-2.mp3"}, {"id": "L20-1", "n": 67, "kind": "listen", "label": "Listening Task 20.1", "title": "Saying sorry", "ch": 20, "cht": "Politeness, Greetings and Respect", "sec": 51.2, "file": "L20-1.mp3"}, {"id": "L20-2", "n": 68, "kind": "listen", "label": "Listening Task 20.2", "title": "English only?", "ch": 20, "cht": "Politeness, Greetings and Respect", "sec": 43.5, "file": "L20-2.mp3"}, {"id": "L20-3", "n": 69, "kind": "listen", "label": "Listening Task 20.3", "title": "A new classmate", "ch": 20, "cht": "Politeness, Greetings and Respect", "sec": 42.9, "file": "L20-3.mp3"}, {"id": "L21-1", "n": 70, "kind": "listen", "label": "Listening Task 21.1", "title": "Making chapati", "ch": 21, "cht": "Language for Everyday Functions", "sec": 75.9, "file": "L21-1.mp3"}, {"id": "L21-2", "n": 71, "kind": "listen", "label": "Listening Task 21.2", "title": "A complaint at the shop", "ch": 21, "cht": "Language for Everyday Functions", "sec": 58.3, "file": "L21-2.mp3"}, {"id": "L21-3", "n": 72, "kind": "listen", "label": "Listening Task 21.3", "title": "At the market", "ch": 21, "cht": "Language for Everyday Functions", "sec": 49.1, "file": "L21-3.mp3"}, {"id": "L22-1", "n": 73, "kind": "listen", "label": "Listening Task 22.1", "title": "Ordering by phone", "ch": 22, "cht": "On the Telephone, Giving Directions and Asking for Information", "sec": 71.8, "file": "L22-1.mp3"}, {"id": "L22-2", "n": 74, "kind": "listen", "label": "Listening Task 22.2", "title": "Where am I going?", "ch": 22, "cht": "On the Telephone, Giving Directions and Asking for Information", "sec": 41.8, "file": "L22-2.mp3"}, {"id": "L22-3", "n": 75, "kind": "listen", "label": "Listening Task 22.3", "title": "An enquiry by telephone", "ch": 22, "cht": "On the Telephone, Giving Directions and Asking for Information", "sec": 99.5, "file": "L22-3.mp3"}, {"id": "L23-1", "n": 76, "kind": "listen", "label": "Listening Task 23.1", "title": "Same words, different messages", "ch": 23, "cht": "Body Language and Non-Verbal Communication", "sec": 49.1, "file": "L23-1.mp3"}, {"id": "L23-2", "n": 77, "kind": "listen", "label": "Listening Task 23.2", "title": "After the interviews", "ch": 23, "cht": "Body Language and Non-Verbal Communication", "sec": 80.8, "file": "L23-2.mp3"}, {"id": "L24-1", "n": 78, "kind": "listen", "label": "Listening Task 24.1", "title": "Come to Sipi!", "ch": 24, "cht": "Preparing and Delivering a Speech", "sec": 84.0, "file": "L24-1.mp3"}, {"id": "L24-2", "n": 79, "kind": "listen", "label": "Listening Task 24.2", "title": "Three openings and two endings", "ch": 24, "cht": "Preparing and Delivering a Speech", "sec": 77.1, "file": "L24-2.mp3"}, {"id": "L25-1", "n": 80, "kind": "listen", "label": "Listening Task 25.1", "title": "The MC at Speech Day", "ch": 25, "cht": "Speeches for Occasions", "sec": 101.5, "file": "L25-1.mp3"}, {"id": "L25-2", "n": 81, "kind": "listen", "label": "Listening Task 25.2", "title": "A vote of thanks", "ch": 25, "cht": "Speeches for Occasions", "sec": 58.2, "file": "L25-2.mp3"}, {"id": "L26-1", "n": 82, "kind": "listen", "label": "Listening Task 26.1", "title": "A school debate", "ch": 26, "cht": "Debating", "sec": 76.5, "file": "L26-1.mp3"}, {"id": "L26-2", "n": 83, "kind": "listen", "label": "Listening Task 26.2", "title": "Spot the faulty reasoning", "ch": 26, "cht": "Debating", "sec": 64.8, "file": "L26-2.mp3"}, {"id": "L27-1", "n": 84, "kind": "listen", "label": "Listening Task 27.1", "title": "Interviewing a market vendor", "ch": 27, "cht": "Presentations, Interviews, Discussions and Meetings", "sec": 95.7, "file": "L27-1.mp3"}, {"id": "L27-2", "n": 85, "kind": "listen", "label": "Listening Task 27.2", "title": "A club meeting", "ch": 27, "cht": "Presentations, Interviews, Discussions and Meetings", "sec": 84.4, "file": "L27-2.mp3"}, {"id": "L28-1", "n": 86, "kind": "listen", "label": "Listening Task 28.1", "title": "The snake in the dormitory", "ch": 28, "cht": "Telling, Reciting and Performing", "sec": 72.7, "file": "L28-1.mp3"}, {"id": "L28-2", "n": 87, "kind": "listen", "label": "Listening Task 28.2", "title": "Why the hen scratches the ground", "ch": 28, "cht": "Telling, Reciting and Performing", "sec": 102.6, "file": "L28-2.mp3"}, {"id": "S28-1", "n": 88, "kind": "say", "label": "Say It Aloud", "title": "Twisters for tricky sounds", "ch": 28, "cht": "Telling, Reciting and Performing", "sec": 50.9, "file": "S28-1.mp3"}, {"id": "S28-2", "n": 89, "kind": "say", "label": "Say It Aloud", "title": "A poem to recite", "ch": 28, "cht": "Telling, Reciting and Performing", "sec": 72.0, "file": "S28-2.mp3"}, {"id": "L29-1", "n": 90, "kind": "listen", "label": "Listening Task 29.1", "title": "Judge the speech", "ch": 29, "cht": "How Speaking and Listening Are Assessed", "sec": 51.6, "file": "L29-1.mp3"}, {"id": "L29-2", "n": 91, "kind": "listen", "label": "Listening Task 29.2", "title": "Observe the discussion", "ch": 29, "cht": "How Speaking and Listening Are Assessed", "sec": 67.1, "file": "L29-2.mp3"}, {"id": "L30-1", "n": 92, "kind": "listen", "label": "Listening Task 30.1", "title": "A talk to remember", "ch": 30, "cht": "Spoken Forms in the Written Paper", "sec": 67.9, "file": "L30-1.mp3"}, {"id": "L30-2", "n": 93, "kind": "listen", "label": "Listening Task 30.2", "title": "From conversation to dialogue", "ch": 30, "cht": "Spoken Forms in the Written Paper", "sec": 54.8, "file": "L30-2.mp3"}, {"id": "B-1", "n": 94, "kind": "say", "label": "Appendix B", "title": "The vowels", "ch": 0, "cht": "Appendix B: The Sounds of English", "sec": 154.9, "file": "B-1.mp3"}, {"id": "B-2", "n": 95, "kind": "say", "label": "Appendix B", "title": "The diphthongs", "ch": 0, "cht": "Appendix B: The Sounds of English", "sec": 105.1, "file": "B-2.mp3"}, {"id": "B-3", "n": 96, "kind": "say", "label": "Appendix B", "title": "The consonants", "ch": 0, "cht": "Appendix B: The Sounds of English", "sec": 86.8, "file": "B-3.mp3"}, {"id": "B-4", "n": 97, "kind": "say", "label": "Appendix B", "title": "Contrasts to practise", "ch": 0, "cht": "Appendix B: The Sounds of English", "sec": 208.9, "file": "B-4.mp3"}];
+const list = document.getElementById('list');
+const jump = document.getElementById('jump');
+const q = document.getElementById('q');
+
+function mmss(s) { if (s == null) return ''; s = Math.round(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function esc(t) { return String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function chapterName(t) { return t.ch ? 'Chapter ' + t.ch : 'Appendix B'; }
+
+function render(filter) {
+  const f = (filter || '').trim().toLowerCase();
+  let html = '', cur = null, shown = 0;
+  for (const t of TRACKS) {
+    const hay = (t.n + ' track ' + t.n + ' ' + t.label + ' ' + t.title + ' ' + t.cht + ' ' + chapterName(t)).toLowerCase();
+    if (f && !(String(t.n) === f || hay.includes(f))) continue;
+    const key = chapterName(t);
+    if (key !== cur) {
+      if (cur !== null) html += '</section>';
+      html += '<section class="chapter" id="ch-' + (t.ch || 'b') + '"><h2>' + esc(key) + '</h2><p class="ct">' + esc(t.cht.replace(/^Appendix B: /, '')) + '</p>';
+      cur = key;
+    }
+    const lab = t.kind === 'say' && t.ch ? 'Say It Aloud' : t.label;
+    html += '<article class="row ' + t.kind + '" id="' + t.id + '">' +
+      '<div class="num" aria-hidden="true">' + t.n + '</div>' +
+      '<div class="meta"><p class="kind">Track ' + t.n + ' · ' + esc(lab) + (t.sec ? ' · <span class="dur">' + mmss(t.sec) + '</span>' : '') + '</p>' +
+      '<p class="title">' + esc(t.title || lab) + '</p></div>' +
+      (t.file ? '<audio controls preload="none" src="' + t.file + '" aria-label="Track ' + t.n + '"></audio>'
+              : '<p class="soon">This recording is being added.</p>') +
+      '</article>';
+    shown++;
+  }
+  if (cur !== null) html += '</section>';
+  list.innerHTML = shown ? html : '<p class="empty">No track matches. Try a number, such as 23, or a word from the title.</p>';
+}
+
+function fillJump() {
+  const seen = new Set();
+  for (const t of TRACKS) {
+    const key = t.ch || 'b';
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const o = document.createElement('option');
+    o.value = 'ch-' + key;
+    o.textContent = (t.ch ? 'Chapter ' + t.ch + ' · ' : 'Appendix B · ') + t.cht.replace(/^Appendix B: /, '');
+    jump.appendChild(o);
+  }
+}
+
+function pauseOthers(except) {
+  document.querySelectorAll('audio').forEach(a => { if (a !== except) a.pause(); });
+}
+document.addEventListener('play', e => { if (e.target.tagName === 'AUDIO') pauseOthers(e.target); }, true);
+
+function showHash() {
+  const id = decodeURIComponent(location.hash.replace(/^#/, ''));
+  document.querySelectorAll('.row.hit').forEach(r => r.classList.remove('hit'));
+  if (!TRACKS.some(x => x.id === id)) return;
+  if (q.value) { q.value = ''; render(''); }
+  const row = document.getElementById(id);
+  if (!row) return;
+  row.classList.add('hit');
+  row.scrollIntoView({block: 'start'});
+}
+
+fillJump();
+render('');
+q.addEventListener('input', () => render(q.value));
+jump.addEventListener('change', () => {
+  if (!jump.value) return;
+  if (q.value) { q.value = ''; render(''); }
+  const el = document.getElementById(jump.value);
+  if (el) el.scrollIntoView({block: 'start'});
+  jump.value = '';
+});
+window.addEventListener('hashchange', showHash);
+showHash();
+</script>
+</body>
+</html>
